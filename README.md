@@ -6,16 +6,23 @@ The main goal of this package is, like all DappNodePackages, to enable the most 
 
 This package is currently configured for mainnet. Support for other networks isn't too much work and can be added if demanded. A released package can be found at `/ipfs/QmNNEUJD8wpLtCMX8JGkGFHg4H7t9sC7BPL9PEPGkheLn6`. An analogous package for gnosis beacon chain is at `/ipfs/QmRGcUcdcK64F2o43gsjmRPgkoZZuWmz2aq7fAhEHC3WoT`.
 
+## Usage
+Doesn't work for Lighthouse currently, check reasoning below.
+1. Enter ipfs hash into `DAppStore`, hit `Search` and hope that it finds it (if not, go to `Repository`, `IPFS`, select `Remote` and enter `https://gateway.pinata.cloud` - I pinned it there, that should work).
+2. Click `Advanced Options` and enable both `Bypass core restriction` and `bypass only signed safe restriction`. Hit `Install`, leave the parameters for now and check the logs. For nimbus users that should be enough already.
+3. Teku and Prysm users: Go to your consensus client Package, `Config` and hit `Advanced`
+   1. Teku: add `--validators-graffiti-file=/opt/teku/data/graffiti.txt` to `EXTRA_OPTS`.
+   2. Prysm: add `--graffiti-file=/root/graffiti.txt` to `EXTRA_OPTS`.
 
 ## Details
 After downloading the target image initially the software works by periodically updating the graffiti to a random pixel which hasn't been drawn yet. All four consensus clients support changing the graffiti string during runtime.
 
 Nimbus offers a dedicated REST API endpoint for this purpose. Since all DAppNodePackages share the same network, we can simply access the nimbus docker container via the docker network and update the graffiti that way. Easy.
 
-Prysm, Lighthouse and Teku only enable this by taking a file as input, which is reloaded on each block proposal. So now we need shared file access between docker images. This is an issue, because default DAppNode settings don't allow this (which generally is a good idea, of course).
+Prysm, Lighthouse and Teku only enable this by taking a file as input, which is reloaded on each block proposal. So now we need shared file access between docker containers. This is an issue, because default DAppNode settings don't allow this (which generally is a good idea, of course).
 One way would be to publish a custom Prysm, Lighthouse and Teku Package which include the drawer. That needs to be done per network though, so for mainnet, gnosis and prater that's 9 packages which also need to be updated individually.
 Another way is to circumvent the forbidden shared file access in this case. Usually we don't want to do this, but after carefully evaluating that it's done responsibly, this might be an option for some users. It's very simple for the user: We only have one Package for all client/network combinations, which can be updated independently of clients. This is what's been done; Below I'll explain how:
-1. Mount the beacon data into our docker. We don't know which client/network the user is running, so we're just mounting the root of all volumes `/var/lib/docker/volumes:/volumes` in `docker-compose.yml` for now. That's arguably overkill and I've plans to change that next, but as a poc it works. Mounting the correct volume is not trivial because there's no optional volumes and we can't evaluate user settings within the docker-compose file. So I thought about a preprocessing step which runs before the actual program is started. It can evaluate user settings/global env variables and rewrite it's own docker-compose to mount only the correct volume on the next start. However there's no point in putting in too much work if noone is willing to try this anyways..
+1. Mount the beacon data into our docker. We don't know which client/network the user is running, so we're just mounting the root of all volumes `/var/lib/docker/volumes:/volumes` in `docker-compose.yml` for now. That's arguably overkill and I've plans to change that next, but as a poc it works. Mounting the correct volume is not trivial because there's no optional volumes and we can't select the correct volume based on user settings within the docker-compose file. So I thought about a preprocessing step which runs before the actual program is started. It can evaluate user settings/global env variables and rewrite it's own docker-compose to mount only the correct volume on the next start. However there's no point in putting in too much work if noone is willing to try this anyways..
 2. DAppNodeSDK refuses to build this with `[...] is a bind-mount, only named non-external volumes are allowed`. So download the SDK and comment out this (and the other) checks for allowed docker volume names. The DAppNodeManager ui will also prevent installing it unless the user enables the bypass checks when installing the package.
 
 Also note: For lighthouse these changes need to be applied on the validator; However its container doesn't mount any volume, so we can't enable the drawer for lighthouse currently. Would need to publish a custom image I guess.
