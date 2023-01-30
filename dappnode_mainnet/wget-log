@@ -1,0 +1,25 @@
+--2023-01-22 21:13:28--  https://prerequisites.dappnode.io/
+Resolving prerequisites.dappnode.io (prerequisites.dappnode.io)... 217.70.184.56
+Connecting to prerequisites.dappnode.io (prerequisites.dappnode.io)|217.70.184.56|:443... connected.
+HTTP request sent, awaiting response... 301 Moved Permanently
+Location: https://github.com/dappnode/DAppNode/releases/latest/download/dappnode_install_pre.sh [following]
+--2023-01-22 21:13:29--  https://github.com/dappnode/DAppNode/releases/latest/download/dappnode_install_pre.sh
+Resolving github.com (github.com)... 140.82.121.4
+Connecting to github.com (github.com)|140.82.121.4|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://github.com/dappnode/DAppNode/releases/download/v0.2.64/dappnode_install_pre.sh [following]
+--2023-01-22 21:13:29--  https://github.com/dappnode/DAppNode/releases/download/v0.2.64/dappnode_install_pre.sh
+Reusing existing connection to github.com:443.
+HTTP request sent, awaiting response... 302 Found
+Location: https://objects.githubusercontent.com/github-production-release-asset-2e65be/123174249/c9f0b6b8-6869-4599-a81d-75dce775765d?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230122%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230122T201329Z&X-Amz-Expires=300&X-Amz-Signature=77a3370c118fa2b7d7516757d331f2145be6a9b0aa883f2b29b63a2c14368f36&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=123174249&response-content-disposition=attachment%3B%20filename%3Ddappnode_install_pre.sh&response-content-type=application%2Foctet-stream [following]
+--2023-01-22 21:13:29--  https://objects.githubusercontent.com/github-production-release-asset-2e65be/123174249/c9f0b6b8-6869-4599-a81d-75dce775765d?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230122%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230122T201329Z&X-Amz-Expires=300&X-Amz-Signature=77a3370c118fa2b7d7516757d331f2145be6a9b0aa883f2b29b63a2c14368f36&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=123174249&response-content-disposition=attachment%3B%20filename%3Ddappnode_install_pre.sh&response-content-type=application%2Foctet-stream
+Resolving objects.githubusercontent.com (objects.githubusercontent.com)... 185.199.108.133, 185.199.109.133, 185.199.110.133, ...
+Connecting to objects.githubusercontent.com (objects.githubusercontent.com)|185.199.108.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 6393 (6,2K) [application/octet-stream]
+Saving to: ‘STDOUT’
+
+-                                                    0%[                                                                                                                ]       0  --.-KB/s               -                                                  100%[===============================================================================================================>]   6,24K  --.-KB/s    in 0,002s  
+
+2023-01-22 21:13:30 (3,33 MB/s) - written to stdout [6393/6393]
+

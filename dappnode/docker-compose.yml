@@ -1,0 +1,11 @@
+version: "3.5"
+services:
+  drawer:
+    build: .
+    image: "drawer.graffitidrawer.public.dappnode.eth:0.1.0"
+    restart: unless-stopped
+    volumes:
+      - "/var/lib/docker/volumes:/volumes"
+    environment:
+      - >-
+        INPUT_URL=https://raw.githubusercontent.com/stake-house/DecentralizedGraffitiDrawing/main/examples/outputs/colored_eth.json

@@ -1,0 +1,23 @@
+version: "2"
+fields:
+  - id: INPUT_URL,
+    target:
+      type: environment
+      name: INPUT_URL
+      service: drawer
+    title: Input url
+    description: >-
+      The input url for the graffiti pixels. This should point to a .json file.
+    required: true
+  - id: CONSENSUS_CLIENT_MOUNT,
+    target:
+      type: namedVolumeMountpoint
+      volumeName: test_data
+    title: Your consensus client
+    description: >-
+      Your consensus layer client
+    enum:
+      - lighthouse
+      - teku
+      - prysm
+    required: true

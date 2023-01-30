@@ -1,0 +1,11 @@
+version: "2"
+fields:
+  - id: INPUT_URL,
+    target:
+      type: environment
+      name: INPUT_URL
+      service: drawer
+    title: Input url
+    description: >-
+      The input url for the graffiti pixels. This should point to a .json file.
+    required: true
